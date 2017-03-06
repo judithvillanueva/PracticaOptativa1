@@ -9,6 +9,7 @@ Client web per www.packtpub.com
 """
 import urllib2
 from bs4 import BeautifulSoup
+import subprocess
 
 
 class Client(object):
@@ -32,7 +33,7 @@ class Client(object):
         web = (self.get_web\
         ('https://www.packtpub.com/packt/offers/free-learning/'))
         resultat = self.search_text(web)
-        print resultat
+        subprocess.Popen(["notify-send","Today's book is:" + resultat])
 
 
 if __name__ == "__main__":
