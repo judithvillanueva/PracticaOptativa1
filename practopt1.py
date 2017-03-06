@@ -8,6 +8,7 @@ Client web per www.packtpub.com
 @author judith.vimo7@gmail.com
 """
 import urllib2
+from bs4 import BeautifulSoup
 
 
 class Client(object):
@@ -18,9 +19,19 @@ class Client(object):
         web.close()
         return html
 
+    # buscar el titol del llibre
+    def search_text(self, html):
+        soup = BeautifulSoup(html, 'html.parser')
+        llibre = soup.find("div", "dotd-title")
+        llibre = llibre.text
+        solucio = llibre.replace("\t", "")
+        solucio = solucio.replace("\n", "")
+        return solucio
+
     def main(self):
-        resultat = (self.get_web\
+        web = (self.get_web\
         ('https://www.packtpub.com/packt/offers/free-learning/'))
+        resultat = self.search_text(web)
         print resultat
 
 
